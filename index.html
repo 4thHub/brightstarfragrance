@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRIGHTSTAR FRAGRANCE — Curated Luxury Perfumes & Oils</title>
+  <meta name="description" content="Authentic designer, niche, and Arabian perfumes delivered nationwide across Nigeria by Brightstar Fragrance. Order directly via WhatsApp." />
+
+  <!-- Anti-flash Theme Loader: Sets data-theme before first paint -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('brightstar_theme_v1');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved === 'dark' || saved === 'light' ? saved : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <!-- Google Fonts: Cormorant Garamond (Luxury Serif) & Inter (Crisp Sans-Serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- PapaParse CSV Parser via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <!-- Tailwind Custom Configuration mapped to CSS Variables -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            alabaster: 'var(--bg-primary)',
+            surface: 'var(--bg-surface)',
+            ivory: 'var(--bg-subtle)',
+            charcoal: 'var(--text-primary)',
+            muted: 'var(--text-muted)',
+            gold: {
+              DEFAULT: 'var(--accent-gold)',
+              dark: 'var(--accent-gold-dark)',
+              light: 'var(--accent-gold-light)'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          },
+          boxShadow: {
+            'soft': 'var(--shadow-soft)',
+            'card': 'var(--shadow-card)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ===================================================================== */
+    /* THEME CSS VARIABLES (WARM LUXURY LIGHT & REFINED NOIR DARK MODE)       */
+    /* ===================================================================== */
+    :root,
+    [data-theme="light"] {
+      --bg-primary: #FAF8F5;
+      --bg-header: rgba(250, 248, 245, 0.92);
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F2EFE9;
+      --text-primary: #1A1817;
+      --text-muted: #6A6660;
+      --border-hairline: rgba(26, 24, 23, 0.1);
+      --border-strong: rgba(26, 24, 23, 0.16);
+      --accent-gold: #B48A4E;
+      --accent-gold-dark: #96703B;
+      --accent-gold-light: #E8DEC8;
+      --btn-primary-bg: #1A1817;
+      --btn-primary-text: #FAF8F5;
+      --bottle-grad-start: #FFFFFF;
+      --bottle-grad-end: #EFECE4;
+      --shadow-soft: 0 4px 20px -2px rgba(26, 24, 23, 0.05);
+      --shadow-card: 0 10px 30px -4px rgba(26, 24, 23, 0.08);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #11100F;
+      --bg-header: rgba(17, 16, 15, 0.90);
+      --bg-surface: #1B1917;
+      --bg-subtle: #25221F;
+      --text-primary: #F4F1EC;
+      --text-muted: #9E988F;
+      --border-hairline: rgba(244, 241, 236, 0.09);
+      --border-strong: rgba(244, 241, 236, 0.16);
+      --accent-gold: #C89D54;
+      --accent-gold-dark: #B0863E;
+      --accent-gold-light: #E6CFA3;
+      --btn-primary-bg: #C89D54;
+      --btn-primary-text: #11100F;
+      --bottle-grad-start: #24211E;
+      --bottle-grad-end: #171513;
+      --shadow-soft: 0 4px 24px -2px rgba(0, 0, 0, 0.45);
+      --shadow-card: 0 12px 32px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Smooth theme color transitions */
+    body, header, footer, article, input, select, button {
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    /* Theme-aware structural helpers */
+    .theme-header {
+      background-color: var(--bg-header);
+      border-color: var(--border-hairline);
+    }
+
+    .theme-border {
+      border-color: var(--border-hairline);
+    }
+
+    .theme-border-strong {
+      border-color: var(--border-strong);
+    }
+
+    .theme-btn-primary {
+      background-color: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+    }
+
+    .theme-btn-primary:hover {
+      background-color: var(--accent-gold);
+      color: #11100F;
+    }
+
+    /* Hide scrollbar for horizontal category pills while retaining scroll functionality */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Smooth image zoom on card hover */
+    .product-card:hover .product-img {
+      transform: scale(1.04);
+    }
+
+    /* Custom subtle pattern for fallback bottle cards */
+    .bottle-placeholder-bg {
+      background: radial-gradient(circle at 50% 35%, var(--bottle-grad-start) 0%, var(--bottle-grad-end) 100%);
+    }
+  </style>
+</head>
+<body class="bg-alabaster text-charcoal font-sans antialiased selection:bg-gold/25 selection:text-charcoal flex flex-col min-h-screen">
+
+  <!-- ===================================================================== -->
+  <!-- DEMO MODE OWNER NOTICE BANNER (Auto-hides once Google Sheet URL is set) -->
+  <!-- ===================================================================== -->
+  <div id="demo-banner" class="hidden bg-[#1A1817] text-[#FAF8F5] text-xs py-2 px-4 text-center border-b border-gold/30">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+      <span>
+        <strong>Demo Catalog Active:</strong> Showing sample Nigerian bestseller fragrances. Paste your published Google Sheet CSV link into <code class="bg-white/10 px-1.5 py-0.5 rounded text-gold-light">CONFIG.GOOGLE_SHEET_CSV_URL</code> inside <code class="bg-white/10 px-1.5 py-0.5 rounded">index.html</code> to go live.
+      </span>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- STICKY TOP HEADER                                                     -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-30 theme-header backdrop-blur-md border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+      <!-- Brand Name & Tagline -->
+      <a href="#" id="brand-home-link" class="flex flex-col group focus:outline-none min-w-0">
+        <span id="header-store-name" class="font-serif text-xl sm:text-3xl font-bold tracking-wider text-charcoal uppercase leading-none group-hover:text-gold transition-colors truncate">
+          BRIGHTSTAR FRAGRANCE
+        </span>
+        <span class="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-muted mt-1">
+          Authentic Scents &bull; Nigeria
+        </span>
+      </a>
+
+      <!-- Right Actions: Minimal Theme Toggle + Cart Button -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- Minimal Modern Dark/Light Mode Toggle -->
+        <button
+          id="theme-toggle-btn"
+          type="button"
+          aria-label="Toggle dark or light mode"
+          title="Switch theme"
+          class="group relative inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-surface border theme-border-strong text-charcoal hover:border-gold hover:text-gold active:scale-95 shadow-soft cursor-pointer"
+        >
+          <!-- Sun Icon (Shown in Dark Mode to switch to Light) -->
+          <svg id="icon-sun" class="hidden w-4 h-4 sm:w-[18px] sm:h-[18px] transition-transform duration-300 group-hover:rotate-45" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4" />
+            <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
+          </svg>
+          <!-- Moon Icon (Shown in Light Mode to switch to Dark) -->
+          <svg id="icon-moon" class="w-4 h-4 sm:w-[18px] sm:h-[18px] transition-transform duration-300 group-hover:-rotate-12" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+
+        <!-- Floating/Sticky Cart Trigger -->
+        <button
+          id="open-cart-btn"
+          type="button"
+          aria-label="Open shopping bag"
+          class="relative inline-flex items-center gap-2 sm:gap-2.5 theme-btn-primary active:scale-[0.98] px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-full text-sm font-medium shadow-soft cursor-pointer"
+        >
+          <!-- Shopping Bag SVG -->
+          <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <span class="hidden sm:inline">Your Bag</span>
+          <span
+            id="cart-badge-count"
+            class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 text-xs font-bold bg-surface text-charcoal border theme-border rounded-full transition-transform"
+          >
+            0
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- HERO, SEARCH & CATEGORY FILTER BAR                                    -->
+  <!-- ===================================================================== -->
+  <section class="pt-6 pb-4 sm:pt-10 sm:pb-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    <!-- Editorial Intro -->
+    <div class="max-w-2xl mb-6 sm:mb-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold mb-1.5">Curated Fragrance House</p>
+      <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-charcoal leading-tight">
+        Signature scents that linger long after you leave.
+      </h1>
+    </div>
+
+    <!-- Search Bar + Available Count -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-5">
+      <!-- Real-time Search Bar -->
+      <div class="relative flex-1 max-w-xl">
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+          <svg class="h-4 w-4 text-muted" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z" />
+          </svg>
+        </div>
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Search perfume, brand, or notes (e.g. Vanilla, Oud, Lattafa)..."
+          class="w-full bg-surface border theme-border-strong focus:border-gold focus:ring-2 focus:ring-gold/20 rounded-full py-3 pl-11 pr-10 text-sm text-charcoal placeholder:text-muted/75 shadow-sm outline-none"
+        />
+        <button
+          id="clear-search-btn"
+          type="button"
+          aria-label="Clear search"
+          class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-muted hover:text-charcoal cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Available Count Pill + Interactive In-Stock Toggle -->
+      <div class="flex items-center justify-between sm:justify-end gap-3">
+        <span id="results-count" class="text-xs text-muted font-medium">Loading scents...</span>
+        <label class="inline-flex items-center gap-2 cursor-pointer select-none bg-surface border theme-border-strong px-3.5 py-1.5 rounded-full shadow-sm hover:border-gold transition-colors">
+          <input
+            type="checkbox"
+            id="hide-soldout-toggle"
+            class="w-3.5 h-3.5 rounded accent-gold cursor-pointer"
+          />
+          <span class="text-xs font-medium text-charcoal">In Stock Only</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Horizontal Scrollable Category Pills -->
+    <div id="category-pills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+      <!-- Pills injected dynamically via JS to ensure active states stay synced -->
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN PRODUCT GRID                                                     -->
+  <!-- ===================================================================== -->
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-16">
+    <!-- Loading Skeleton State -->
+    <div id="loading-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6">
+      <div class="bg-surface rounded-2xl p-3 sm:p-4 border theme-border animate-pulse">
+        <div class="aspect-[4/5] bg-ivory rounded-xl mb-3"></div>
+        <div class="h-3 bg-ivory rounded w-1/3 mb-2"></div>
+        <div class="h-4 bg-ivory rounded w-3/4 mb-2"></div>
+        <div class="h-3 bg-ivory rounded w-1/2 mb-4"></div>
+        <div class="h-9 bg-ivory rounded-xl w-full"></div>
+      </div>
+      <div class="bg-surface rounded-2xl p-3 sm:p-4 border theme-border animate-pulse">
+        <div class="aspect-[4/5] bg-ivory rounded-xl mb-3"></div>
+        <div class="h-3 bg-ivory rounded w-1/3 mb-2"></div>
+        <div class="h-4 bg-ivory rounded w-3/4 mb-2"></div>
+        <div class="h-3 bg-ivory rounded w-1/2 mb-4"></div>
+        <div class="h-9 bg-ivory rounded-xl w-full"></div>
+      </div>
+      <div class="bg-surface rounded-2xl p-3 sm:p-4 border theme-border animate-pulse hidden md:block">
+        <div class="aspect-[4/5] bg-ivory rounded-xl mb-3"></div>
+        <div class="h-3 bg-ivory rounded w-1/3 mb-2"></div>
+        <div class="h-4 bg-ivory rounded w-3/4 mb-2"></div>
+        <div class="h-3 bg-ivory rounded w-1/2 mb-4"></div>
+        <div class="h-9 bg-ivory rounded-xl w-full"></div>
+      </div>
+      <div class="bg-surface rounded-2xl p-3 sm:p-4 border theme-border animate-pulse hidden lg:block">
+        <div class="aspect-[4/5] bg-ivory rounded-xl mb-3"></div>
+        <div class="h-3 bg-ivory rounded w-1/3 mb-2"></div>
+        <div class="h-4 bg-ivory rounded w-3/4 mb-2"></div>
+        <div class="h-3 bg-ivory rounded w-1/2 mb-4"></div>
+        <div class="h-9 bg-ivory rounded-xl w-full"></div>
+      </div>
+    </div>
+
+    <!-- Error Message State (if Google Sheet URL fails) -->
+    <div id="error-state" class="hidden bg-surface border border-red-500/30 rounded-2xl p-6 sm:p-10 text-center max-w-lg mx-auto my-8 shadow-soft">
+      <div class="w-12 h-12 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 class="font-serif text-2xl font-semibold text-charcoal mb-1">Could not load fragrance catalog</h3>
+      <p id="error-message-text" class="text-sm text-muted mb-5">Please check your internet connection or verify that your Google Sheet is published to the web as a CSV.</p>
+      <button id="retry-fetch-btn" type="button" class="theme-btn-primary px-5 py-2.5 rounded-full text-sm font-medium cursor-pointer">
+        Try Again
+      </button>
+    </div>
+
+    <!-- Empty Filter / Search State -->
+    <div id="empty-state" class="hidden bg-surface border theme-border rounded-2xl p-8 sm:p-12 text-center max-w-md mx-auto my-8 shadow-soft">
+      <div class="w-12 h-12 rounded-full bg-ivory text-gold flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z" />
+        </svg>
+      </div>
+      <h3 class="font-serif text-2xl font-semibold text-charcoal mb-1">No matching scents found</h3>
+      <p class="text-sm text-muted mb-5">Try searching another note (like Oud, Vanilla, or Rose) or reset your category filters.</p>
+      <button id="reset-filters-btn" type="button" class="bg-gold hover:bg-gold-dark text-[#11100F] px-5 py-2.5 rounded-full text-sm font-semibold transition-colors cursor-pointer">
+        Show All Perfumes
+      </button>
+    </div>
+
+    <!-- Responsive Fragrance Grid -->
+    <div id="product-grid" class="hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6">
+      <!-- Product Cards injected dynamically via JS -->
+    </div>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- FOOTER: AUTHENTICITY, NATIONWIDE DELIVERY & CONTACT                   -->
+  <!-- ===================================================================== -->
+  <footer class="bg-[#161413] text-[#FAF8F5] border-t border-white/10 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 pb-10 border-b border-white/10">
+        <!-- Column 1: Brand & Authenticity -->
+        <div>
+          <h2 id="footer-store-name" class="font-serif text-2xl font-bold tracking-wider uppercase text-white mb-3">
+            BRIGHTSTAR FRAGRANCE
+          </h2>
+          <p class="text-sm text-[#FAF8F5]/75 leading-relaxed mb-4">
+            100% original designer, niche, and Middle Eastern fragrances sourced directly from verified distributors. Zero fakes, zero dilutions.
+          </p>
+          <div class="inline-flex items-center gap-2 text-xs font-medium text-[#E8DEC8] bg-white/5 px-3 py-1.5 rounded-full border border-gold/30">
+            <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Authenticity Guaranteed</span>
+          </div>
+        </div>
+
+        <!-- Column 2: Nationwide Delivery Policy -->
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-gold mb-3">Nationwide Delivery</h3>
+          <ul class="space-y-2.5 text-sm text-[#FAF8F5]/80">
+            <li class="flex items-start gap-2.5">
+              <span class="text-gold font-bold">&bull;</span>
+              <span><strong class="text-white">Lagos &amp; Abuja:</strong> Same-day or next-day doorstep dispatch rider delivery.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-gold font-bold">&bull;</span>
+              <span><strong class="text-white">Interstate (All 36 States):</strong> Fast park waybill (GIGM, GUO, ABC) or doorstep courier within 24–48 hours.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-gold font-bold">&bull;</span>
+              <span>Orders are confirmed via WhatsApp before payment &amp; dispatch.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Direct WhatsApp Concierge -->
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-gold mb-3">Fragrance Concierge</h3>
+          <p class="text-sm text-[#FAF8F5]/75 leading-relaxed mb-4">
+            Need help picking a signature scent or gifting combo? Chat directly with us on WhatsApp for personalized recommendations.
+          </p>
+          <a
+            id="footer-whatsapp-link"
+            href="https://wa.me/2348149144852"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-gold hover:bg-gold-dark text-[#11100F] px-5 py-2.5 rounded-full text-sm font-semibold transition-colors"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+            </svg>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#FAF8F5]/50">
+        <p>&copy; <span id="current-year">2026</span> <span id="copyright-store-name">BRIGHTSTAR FRAGRANCE</span>. All rights reserved.</p>
+        <p>Prices in Nigerian Naira (&#8358;)</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- PERFUME DETAILS MODAL (POP-UP)                                        -->
+  <!-- ===================================================================== -->
+  <div
+    id="product-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6"
+  >
+    <!-- Backdrop -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"></div>
+
+    <!-- Modal Card -->
+    <div class="relative z-10 bg-alabaster border theme-border-strong rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all max-h-[90vh] flex flex-col">
+      <!-- Close Button -->
+      <button
+        id="close-modal-btn"
+        type="button"
+        aria-label="Close perfume details"
+        class="absolute top-3.5 right-3.5 z-20 w-9 h-9 rounded-full bg-surface/90 hover:bg-surface text-charcoal border theme-border flex items-center justify-center shadow-md transition-transform active:scale-95 cursor-pointer"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Scrollable Modal Content -->
+      <div class="overflow-y-auto grid grid-cols-1 sm:grid-cols-2">
+        <!-- Left: Large Bottle Image -->
+        <div class="relative aspect-square sm:aspect-auto sm:h-full bottle-placeholder-bg flex items-center justify-center overflow-hidden">
+          <img
+            id="modal-image"
+            src=""
+            alt=""
+            class="w-full h-full object-cover"
+          />
+          <div id="modal-badges" class="absolute top-3.5 left-3.5 flex flex-col gap-1.5"></div>
+        </div>
+
+        <!-- Right: Scent Details & Action -->
+        <div class="p-6 sm:p-7 flex flex-col justify-between bg-surface">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <span id="modal-brand" class="text-xs font-semibold uppercase tracking-[0.18em] text-muted">BRAND</span>
+              <span id="modal-category" class="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-ivory text-charcoal">Category</span>
+            </div>
+
+            <h2 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-charcoal leading-snug mb-1">
+              Fragrance Name
+            </h2>
+
+            <p id="modal-size" class="text-xs text-muted font-medium mb-4">100ml Eau de Parfum</p>
+
+            <div class="flex items-baseline gap-3 mb-5 pb-4 border-b theme-border">
+              <span id="modal-price" class="text-2xl font-bold text-charcoal">&#8358;0</span>
+              <span id="modal-stock-status" class="text-xs font-semibold px-2.5 py-0.5 rounded-full">In Stock</span>
+            </div>
+
+            <!-- Scent Notes Tags -->
+            <div class="mb-6">
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-muted mb-2.5">Key Scent Notes</h3>
+              <div id="modal-notes" class="flex flex-wrap gap-1.5">
+                <!-- Note tags injected dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Add to Cart CTA -->
+          <div class="pt-2">
+            <button
+              id="modal-add-btn"
+              type="button"
+              class="w-full py-3.5 px-6 rounded-full font-semibold text-sm flex items-center justify-center gap-2 shadow-soft cursor-pointer"
+            >
+              <span>Add to Bag</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE-OUT CART & WHATSAPP CHECKOUT DRAWER                             -->
+  <!-- ===================================================================== -->
+  <div
+    id="cart-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cart-drawer-title"
+    class="fixed inset-0 z-50 hidden"
+  >
+    <!-- Backdrop -->
+    <div id="cart-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"></div>
+
+    <!-- Drawer Panel (Right Slide-Over) -->
+    <div class="fixed inset-y-0 right-0 z-10 w-full max-w-md bg-alabaster shadow-2xl flex flex-col border-l theme-border-strong">
+      <!-- Drawer Header -->
+      <div class="px-5 py-4 bg-surface border-b theme-border flex items-center justify-between">
+        <div>
+          <h2 id="cart-drawer-title" class="font-serif text-2xl font-bold text-charcoal">Your Fragrance Bag</h2>
+          <p id="cart-subtitle" class="text-xs text-muted">0 items selected</p>
+        </div>
+        <button
+          id="close-cart-btn"
+          type="button"
+          aria-label="Close bag"
+          class="w-9 h-9 rounded-full bg-alabaster hover:bg-ivory text-charcoal border theme-border flex items-center justify-center cursor-pointer"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Scrollable Cart Items + Delivery Form -->
+      <div class="flex-1 overflow-y-auto p-5 space-y-6">
+        <!-- Empty Cart State -->
+        <div id="cart-empty-view" class="text-center py-12 px-4">
+          <div class="w-14 h-14 rounded-full bg-ivory text-gold flex items-center justify-center mx-auto mb-3">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-xl font-semibold text-charcoal mb-1">Your bag is currently empty</h3>
+          <p class="text-xs text-muted mb-5">Explore our collection of designer, niche, and Arabian scents to add items.</p>
+          <button
+            id="continue-shopping-btn"
+            type="button"
+            class="theme-btn-primary px-5 py-2.5 rounded-full text-xs font-medium cursor-pointer"
+          >
+            Browse Perfumes
+          </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="hidden space-y-3">
+          <!-- Cart item rows injected dynamically -->
+        </div>
+
+        <!-- Delivery Details Form (Visible when cart has >= 1 item) -->
+        <form id="checkout-form" class="hidden bg-surface p-4 sm:p-5 rounded-2xl border theme-border space-y-3.5 shadow-sm" novalidate>
+          <div class="flex items-center justify-between border-b theme-border pb-2.5">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-charcoal">Delivery Details</h3>
+            <span class="text-[11px] text-gold font-medium">Required for dispatch</span>
+          </div>
+
+          <!-- Customer Name -->
+          <div>
+            <label for="customer-name" class="block text-xs font-medium text-charcoal mb-1">Your Full Name <span class="text-red-500">*</span></label>
+            <input
+              type="text"
+              id="customer-name"
+              required
+              placeholder="e.g. Chinedu Okafor / Aisha Bello"
+              class="w-full bg-alabaster border theme-border-strong focus:border-gold rounded-xl px-3.5 py-2.5 text-sm text-charcoal outline-none"
+            />
+          </div>
+
+          <!-- Delivery State (All 36 Nigerian States + FCT Abuja) -->
+          <div>
+            <label for="customer-state" class="block text-xs font-medium text-charcoal mb-1">Delivery State <span class="text-red-500">*</span></label>
+            <select
+              id="customer-state"
+              required
+              class="w-full bg-alabaster border theme-border-strong focus:border-gold rounded-xl px-3.5 py-2.5 text-sm text-charcoal outline-none"
+            >
+              <option value="">Select State...</option>
+              <option value="Lagos">Lagos</option>
+              <option value="FCT - Abuja">FCT - Abuja</option>
+              <option value="Rivers">Rivers</option>
+              <option value="Oyo">Oyo</option>
+              <option value="Ogun">Ogun</option>
+              <option value="Abia">Abia</option>
+              <option value="Adamawa">Adamawa</option>
+              <option value="Akwa Ibom">Akwa Ibom</option>
+              <option value="Anambra">Anambra</option>
+              <option value="Bauchi">Bauchi</option>
+              <option value="Bayelsa">Bayelsa</option>
+              <option value="Benue">Benue</option>
+              <option value="Borno">Borno</option>
+              <option value="Cross River">Cross River</option>
+              <option value="Delta">Delta</option>
+              <option value="Ebonyi">Ebonyi</option>
+              <option value="Edo">Edo</option>
+              <option value="Ekiti">Ekiti</option>
+              <option value="Enugu">Enugu</option>
+              <option value="Gombe">Gombe</option>
+              <option value="Imo">Imo</option>
+              <option value="Jigawa">Jigawa</option>
+              <option value="Kaduna">Kaduna</option>
+              <option value="Kano">Kano</option>
+              <option value="Katsina">Katsina</option>
+              <option value="Kebbi">Kebbi</option>
+              <option value="Kogi">Kogi</option>
+              <option value="Kwara">Kwara</option>
+              <option value="Nasarawa">Nasarawa</option>
+              <option value="Niger">Niger</option>
+              <option value="Ondo">Ondo</option>
+              <option value="Osun">Osun</option>
+              <option value="Plateau">Plateau</option>
+              <option value="Sokoto">Sokoto</option>
+              <option value="Taraba">Taraba</option>
+              <option value="Yobe">Yobe</option>
+              <option value="Zamfara">Zamfara</option>
+            </select>
+          </div>
+
+          <!-- City / Area -->
+          <div>
+            <label for="customer-city" class="block text-xs font-medium text-charcoal mb-1">City / Bus Stop / Street Area <span class="text-red-500">*</span></label>
+            <input
+              type="text"
+              id="customer-city"
+              required
+              placeholder="e.g. Lekki Phase 1, Wuse 2, GRA Benin"
+              class="w-full bg-alabaster border theme-border-strong focus:border-gold rounded-xl px-3.5 py-2.5 text-sm text-charcoal outline-none"
+            />
+          </div>
+
+          <!-- Optional Note -->
+          <div>
+            <label for="customer-note" class="block text-xs font-medium text-charcoal mb-1">Delivery Note <span class="text-muted font-normal">(Optional)</span></label>
+            <input
+              type="text"
+              id="customer-note"
+              placeholder="e.g. Gift wrap, call on arrival, preferred park..."
+              class="w-full bg-alabaster border theme-border-strong focus:border-gold rounded-xl px-3.5 py-2.5 text-sm text-charcoal outline-none"
+            />
+          </div>
+
+          <!-- Validation Warning Banner (Replaces alert()) -->
+          <div id="form-error-msg" class="hidden text-xs text-red-500 bg-red-500/10 border border-red-500/30 rounded-xl px-3 py-2">
+            Please enter your Name, Delivery State, and City/Area before sending your order.
+          </div>
+        </form>
+      </div>
+
+      <!-- Sticky Drawer Footer: Subtotal & WhatsApp Checkout Button -->
+      <div id="cart-footer" class="hidden bg-surface border-t theme-border p-5 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-muted">Subtotal (excl. delivery)</span>
+          <span id="cart-subtotal" class="text-xl font-bold text-charcoal">&#8358;0</span>
+        </div>
+
+        <button
+          id="whatsapp-checkout-btn"
+          type="button"
+          class="w-full bg-[#1E8E3E] hover:bg-[#187733] active:scale-[0.99] text-white font-semibold py-3.5 px-5 rounded-full text-sm shadow-soft transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+        >
+          <!-- WhatsApp Icon -->
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+          </svg>
+          <span>Send Order to WhatsApp</span>
+        </button>
+
+        <p class="text-[11px] text-center text-muted">
+          You will be redirected to WhatsApp to confirm delivery fee &amp; payment.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SUBTLE TOAST NOTIFICATION (Replaces alert() on Add to Cart)           -->
+  <!-- ===================================================================== -->
+  <div
+    id="toast-notification"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300"
+  >
+    <div class="bg-[#1A1817] text-[#FAF8F5] px-4 py-2.5 rounded-full shadow-xl border border-gold/40 flex items-center gap-2.5 text-xs sm:text-sm font-medium">
+      <span class="w-2 h-2 rounded-full bg-gold"></span>
+      <span id="toast-message">Added to your bag</span>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- STOREFRONT APPLICATION LOGIC (ES6+)                                   -->
+  <!-- ===================================================================== -->
+  <script>
+    /**
+     * =========================================================================
+     * STORE CONFIGURATION — EDIT THESE 3 VALUES TO CONNECT YOUR LIVE SHEET
+     * =========================================================================
+     */
+    const CONFIG = {
+      GOOGLE_SHEET_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTBYgCScQeJlVrI3AxHSWTHnjisyt1onkrdagyYnwFflGquGFmK71g3G0lyV5EY5ImsvR-SIdh4WFKJ/pub?gid=0&single=true&output=csv',
+      WHATSAPP_NUMBER: '2348149144852',
+      STORE_NAME: 'BRIGHTSTAR FRAGRANCE'
+    };
+
+    const CATEGORIES = ['All', 'Woody', 'Floral', 'Gourmand', 'Fresh', 'Oils', 'Combos'];
+
+    const SAMPLE_PERFUMES = [
+      {
+        ID: 'PRF-001',
+        Brand: 'Lattafa',
+        Name: 'Khamrah',
+        Category: 'Gourmand',
+        Size: '100ml',
+        Price: 38000,
+        InStock: true,
+        Featured: true,
+        Notes: 'Cinnamon, Nutmeg, Dates, Praline, Vanilla, Tonka Bean',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-002',
+        Brand: 'Armaf',
+        Name: 'Club de Nuit Intense Man',
+        Category: 'Woody',
+        Size: '105ml',
+        Price: 45000,
+        InStock: true,
+        Featured: true,
+        Notes: 'Lemon, Pineapple, Birch, Smoky Woods, Musk, Ambergris',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-003',
+        Brand: 'Maison Francis Kurkdjian',
+        Name: 'Baccarat Rouge 540 Extrait',
+        Category: 'Woody',
+        Size: '70ml',
+        Price: 365000,
+        InStock: true,
+        Featured: true,
+        Notes: 'Saffron, Bitter Almond, Egyptian Jasmine, Cedarwood, Ambergris',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-004',
+        Brand: 'Kayali',
+        Name: 'Vanilla 28 Eau de Parfum',
+        Category: 'Gourmand',
+        Size: '100ml',
+        Price: 145000,
+        InStock: true,
+        Featured: true,
+        Notes: 'Vanilla Orchid, Tonka Absolute, Brown Sugar, Amber Woods, Musk',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-005',
+        Brand: 'Parfums de Marly',
+        Name: 'Delina Exclusif',
+        Category: 'Floral',
+        Size: '75ml',
+        Price: 295000,
+        InStock: true,
+        Featured: false,
+        Notes: 'Turkish Rose, Lychee, Pear, Incense, Vanilla, Cashmeran',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-006',
+        Brand: 'Al-Rehab',
+        Name: 'Choco Musk Concentrated Oil',
+        Category: 'Oils',
+        Size: '6ml Roll-On',
+        Price: 4500,
+        InStock: true,
+        Featured: false,
+        Notes: 'Milk Chocolate, Madagascar Vanilla, Cinnamon, White Musk, Sandalwood',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-007',
+        Brand: 'Dior',
+        Name: 'Sauvage Elixir',
+        Category: 'Fresh',
+        Size: '60ml',
+        Price: 210000,
+        InStock: false,
+        Featured: false,
+        Notes: 'Grapefruit, Cardamom, Lavender, Licorice, Haitian Vetiver, Amber',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-008',
+        Brand: 'Afnan',
+        Name: '9PM Eau de Parfum',
+        Category: 'Gourmand',
+        Size: '100ml',
+        Price: 36000,
+        InStock: true,
+        Featured: false,
+        Notes: 'Apple, Cinnamon, Wild Lavender, Orange Blossom, Vanilla, Tonka',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-009',
+        Brand: 'Swiss Arabian',
+        Name: 'Shaghaf Oud',
+        Category: 'Woody',
+        Size: '75ml',
+        Price: 48000,
+        InStock: true,
+        Featured: false,
+        Notes: 'Saffron, Damask Rose, Agarwood (Oud), Praline, Vanilla',
+        ImageURL: ''
+      },
+      {
+        ID: 'PRF-010',
+        Brand: 'Curated Set',
+        Name: 'Date Night & Layering Duo',
+        Category: 'Combos',
+        Size: '100ml + 6ml Oil',
+        Price: 41000,
+        InStock: true,
+        Featured: true,
+        Notes: 'Lattafa Khamrah 100ml + Choco Musk Oil 6ml Gift Bundle',
+        ImageURL: ''
+      }
+    ];
+
+    // =========================================================================
+    // APPLICATION STATE & STORAGE KEYS
+    // =========================================================================
+    const STORAGE_KEY_CART = 'brightstar_cart_v1';
+    const STORAGE_KEY_CUSTOMER = 'brightstar_customer_v1';
+    const STORAGE_KEY_THEME = 'brightstar_theme_v1';
+
+    let state = {
+      products: [],
+      selectedCategory: 'All',
+      searchQuery: '',
+      hideSoldOut: false,
+      cart: [],
+      activeModalProductId: null
+    };
+
+    // =========================================================================
+    // THEME MANAGEMENT (LIGHT & DARK MODE)
+    // =========================================================================
+    function applyThemeIcons(theme) {
+      const sunIcon = document.getElementById('icon-sun');
+      const moonIcon = document.getElementById('icon-moon');
+      if (!sunIcon || !moonIcon) return;
+
+      if (theme === 'dark') {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      }
+    }
+
+    function initTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      applyThemeIcons(currentTheme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      applyThemeIcons(next);
+      try {
+        localStorage.setItem(STORAGE_KEY_THEME, next);
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
+
+    // =========================================================================
+    // UTILITY HELPERS
+    // =========================================================================
+    function formatNaira(amount) {
+      const num = Number(amount) || 0;
+      return '₦' + num.toLocaleString('en-NG', { maximumFractionDigits: 0 });
+    }
+
+    /**
+     * Escapes HTML entities to prevent XSS from spreadsheet text
+     */
+    function escapeHTML(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    /**
+     * Generates a clean SVG data-URI fallback image for perfume bottles
+     * when ImageURL is blank or fails to load.
+     */
+    function getFallbackBottleSVG(brand = '', name = '') {
+      const safeBrand = escapeHTML((brand || 'BRIGHTSTAR').toUpperCase().slice(0, 18));
+      const safeName = escapeHTML((name || 'PARFUM').slice(0, 22));
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+          <defs>
+            <radialGradient id="bg" cx="50%" cy="40%" r="65%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="100%" stop-color="#EFECE4"/>
+            </radialGradient>
+            <linearGradient id="glass" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FAF8F5"/>
+              <stop offset="50%" stop-color="#E8DEC8" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#D4C29E" stop-opacity="0.75"/>
+            </linearGradient>
+            <linearGradient id="cap" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#1A1817"/>
+              <stop offset="50%" stop-color="#33302E"/>
+              <stop offset="100%" stop-color="#1A1817"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg)"/>
+          <rect x="65" y="55" width="270" height="390" rx="135" fill="none" stroke="#B48A4E" stroke-opacity="0.22" stroke-width="1.5"/>
+          <rect x="168" y="108" width="64" height="44" rx="6" fill="url(#cap)"/>
+          <rect x="178" y="152" width="44" height="14" fill="#B48A4E"/>
+          <rect x="122" y="166" width="156" height="214" rx="18" fill="url(#glass)" stroke="#B48A4E" stroke-opacity="0.45" stroke-width="1.5"/>
+          <rect x="142" y="212" width="116" height="122" rx="4" fill="#FAF8F5" stroke="#1A1817" stroke-opacity="0.12"/>
+          <text x="200" y="246" font-family="Georgia, serif" font-size="11" letter-spacing="2.5" fill="#B48A4E" text-anchor="middle">${safeBrand}</text>
+          <line x1="170" y1="258" x2="230" y2="258" stroke="#1A1817" stroke-opacity="0.15"/>
+          <text x="200" y="282" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#1A1817" text-anchor="middle">${safeName}</text>
+          <text x="200" y="314" font-family="sans-serif" font-size="9" letter-spacing="2" fill="#6A6660" text-anchor="middle">EAU DE PARFUM</text>
+        </svg>
+      `;
+      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+    }
+
+    /**
+     * Displays a brief floating toast confirmation
+     */
+    let toastTimeout = null;
+    function showToast(message) {
+      const toast = document.getElementById('toast-notification');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+      toastMsg.textContent = message;
+      toast.classList.remove('opacity-0', 'translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-3');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2400);
+    }
+
+    /**
+     * Normalizes a raw row from PapaParse using case-insensitive header lookup
+     */
+    function normalizeProductRow(rawRow, index) {
+      const map = {};
+      Object.keys(rawRow || {}).forEach((k) => {
+        if (k) {
+          const cleanKey = k.replace(/[\u00A0\u200B-\u200D\uFEFF]/g, '').trim().toLowerCase().replace(/[\s_-]+/g, '');
+          map[cleanKey] = rawRow[k];
+        }
+      });
+
+      const id = String(map['id'] || `ITEM-${index + 1}`).trim();
+      const brand = String(map['brand'] || '').trim();
+      const name = String(map['name'] || '').trim();
+      const category = String(map['category'] || 'Uncategorized').trim();
+      const size = String(map['size'] || '').trim();
+
+      const rawPrice = String(map['price'] || '0').replace(/[^0-9.]/g, '');
+      const price = parseFloat(rawPrice) || 0;
+
+      const inStock = parseSheetBoolean(map['instock']);
+      const featured = parseSheetBoolean(map['featured']);
+      const notes = String(map['notes'] || '').trim();
+      const imageUrl = String(map['imageurl'] || '').trim();
+
+      return {
+        ID: id,
+        Brand: brand,
+        Name: name,
+        Category: category,
+        Size: size,
+        Price: price,
+        InStock: inStock,
+        Featured: featured,
+        Notes: notes,
+        ImageURL: imageUrl
+      };
+    }
+
+    /**
+     * Safely parses boolean strings from Google Sheets.
+     * Explicitly treats FALSE, NO, 0, OUT OF STOCK, UNAVAILABLE, and blanks as false.
+     * Only resolves to true for TRUE, YES, 1, IN STOCK, AVAILABLE, or boolean true.
+     */
+    function parseSheetBoolean(val) {
+      if (typeof val === 'boolean') return val;
+      if (val === null || val === undefined) return false;
+
+      // Normalize whitespace (including non-breaking spaces) and casing
+      const normalized = String(val)
+        .replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ')
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toUpperCase();
+
+      if (
+        !normalized ||
+        normalized === 'FALSE' ||
+        normalized === 'NO' ||
+        normalized === '0' ||
+        normalized === 'OUT OF STOCK' ||
+        normalized === 'UNAVAILABLE' ||
+        normalized === 'SOLD OUT'
+      ) {
+        return false;
+      }
+
+      return (
+        normalized === 'TRUE' ||
+        normalized === 'YES' ||
+        normalized === '1' ||
+        normalized === 'IN STOCK' ||
+        normalized === 'AVAILABLE'
+      );
+    }
+
+    /**
+     * Pins Featured items at the top while keeping all items available for the In-Stock toggle
+     */
+    function prepareCatalogProducts(list) {
+      return [...list].sort((a, b) => {
+        if (a.Featured === b.Featured) return 0;
+        return a.Featured ? -1 : 1;
+      });
+    }
+
+    /**
+     * Removes any saved cart items that are marked out of stock in the active catalog
+     * and notifies the customer if any unavailable items were cleared.
+     */
+    function syncCartWithAvailableStock() {
+      if (!Array.isArray(state.cart) || state.cart.length === 0) return;
+
+      const availableIds = new Set(state.products.filter((p) => p.InStock).map((p) => p.ID));
+      const initialCount = state.cart.length;
+      state.cart = state.cart.filter((entry) => availableIds.has(entry.id));
+
+      if (state.cart.length < initialCount) {
+        const removedCount = initialCount - state.cart.length;
+        saveCartToStorage();
+        showToast(
+          removedCount === 1
+            ? '1 sold-out item was removed from your bag'
+            : `${removedCount} sold-out items were removed from your bag`
+        );
+      }
+    }
+
+    /**
+     * Fetches and parses the live Google Sheet CSV, or falls back to sample data
+     */
+    function loadCatalog() {
+      const loadingGrid = document.getElementById('loading-grid');
+      const productGrid = document.getElementById('product-grid');
+      const errorState = document.getElementById('error-state');
+      const demoBanner = document.getElementById('demo-banner');
+
+      loadingGrid.classList.remove('hidden');
+      productGrid.classList.add('hidden');
+      errorState.classList.add('hidden');
+
+      const csvUrl = (CONFIG.GOOGLE_SHEET_CSV_URL || '').trim();
+
+      // If no Google Sheet CSV link has been configured yet, load Nigerian sample perfumes
+      if (!csvUrl) {
+        demoBanner.classList.remove('hidden');
+        console.info(
+          '%c[BRIGHTSTAR FRAGRANCE] Running in Demo Mode. Paste your published Google Sheets CSV URL into CONFIG.GOOGLE_SHEET_CSV_URL to load live inventory.',
+          'color: #B48A4E; font-weight: bold;'
+        );
+        state.products = prepareCatalogProducts(SAMPLE_PERFUMES);
+        syncCartWithAvailableStock();
+        loadingGrid.classList.add('hidden');
+        renderProducts();
+        updateCartUI();
+        return;
+      }
+
+      // Live Google Sheets CSV fetch via PapaParse
+      demoBanner.classList.add('hidden');
+      Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        skipEmptyLines: 'greedy',
+        transformHeader: function (header) {
+          return String(header || '').replace(/[\u00A0\u200B-\u200D\uFEFF]/g, '').trim();
+        },
+        complete: function (results) {
+          try {
+            const parsed = (results.data || [])
+              .map((row, idx) => normalizeProductRow(row, idx))
+              .filter((item) => item.Name.length > 0);
+
+            if (parsed.length === 0) {
+              throw new Error('The connected Google Sheet returned 0 valid fragrance rows.');
+            }
+
+            state.products = prepareCatalogProducts(parsed);
+            syncCartWithAvailableStock();
+            loadingGrid.classList.add('hidden');
+            renderProducts();
+            updateCartUI();
+          } catch (err) {
+            console.error('CSV Parse Error:', err);
+            loadingGrid.classList.add('hidden');
+            document.getElementById('error-message-text').textContent = err.message;
+            errorState.classList.remove('hidden');
+          }
+        },
+        error: function (err) {
+          console.error('CSV Network Error:', err);
+          loadingGrid.classList.add('hidden');
+          document.getElementById('error-message-text').textContent =
+            'Unable to reach your Google Sheet CSV link. Ensure it is published to the web as CSV and check your connection.';
+          errorState.classList.remove('hidden');
+        }
+      });
+    }
+
+    // =========================================================================
+    // FILTERING & RENDERING PRODUCT GRID
+    // =========================================================================
+
+    function renderCategoryPills() {
+      const container = document.getElementById('category-pills');
+      container.innerHTML = CATEGORIES.map((cat) => {
+        const isActive = state.selectedCategory.toLowerCase() === cat.toLowerCase();
+        const classes = isActive
+          ? 'theme-btn-primary border-transparent shadow-sm font-semibold'
+          : 'bg-surface text-charcoal/85 border theme-border-strong hover:border-gold hover:text-gold';
+        return `
+          <button
+            type="button"
+            data-category="${escapeHTML(cat)}"
+            class="category-pill shrink-0 px-4 py-2 rounded-full text-xs sm:text-sm font-medium cursor-pointer ${classes}"
+          >
+            ${escapeHTML(cat)}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function getFilteredProducts() {
+      const q = state.searchQuery.trim().toLowerCase();
+      return state.products.filter((item) => {
+        // 1. Category filter
+        if (state.selectedCategory !== 'All') {
+          if (item.Category.toLowerCase() !== state.selectedCategory.toLowerCase()) {
+            return false;
+          }
+        }
+        // 2. Hide Sold Out filter
+        if (state.hideSoldOut && !item.InStock) {
+          return false;
+        }
+        // 3. Search query filter (Name, Brand, or Notes)
+        if (q.length > 0) {
+          const haystack = `${item.Name} ${item.Brand} ${item.Notes} ${item.Category}`.toLowerCase();
+          if (!haystack.includes(q)) {
+            return false;
+          }
+        }
+        return true;
+      });
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const emptyState = document.getElementById('empty-state');
+      const resultsCount = document.getElementById('results-count');
+
+      const filtered = getFilteredProducts();
+      resultsCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'fragrance' : 'fragrances'}`;
+
+      if (filtered.length === 0) {
+        grid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.classList.remove('hidden');
+
+      grid.innerHTML = filtered
+        .map((product) => {
+          const fallbackSrc = getFallbackBottleSVG(product.Brand, product.Name);
+          const imgSrc = product.ImageURL ? escapeHTML(product.ImageURL) : fallbackSrc;
+          const isSoldOut = !product.InStock;
+
+          const notesList = product.Notes
+            ? product.Notes.split(',').map((n) => n.trim()).filter(Boolean)
+            : [];
+          const notesPreview = notesList.slice(0, 3).join(' • ');
+
+          return `
+            <article
+              data-product-id="${escapeHTML(product.ID)}"
+              class="product-card group bg-surface rounded-2xl border theme-border overflow-hidden shadow-soft hover:shadow-card flex flex-col cursor-pointer ${isSoldOut ? 'opacity-85' : ''}"
+            >
+              <!-- Image Container -->
+              <div class="relative aspect-[4/5] bottle-placeholder-bg overflow-hidden">
+                <img
+                  src="${imgSrc}"
+                  alt="${escapeHTML(product.Brand)} ${escapeHTML(product.Name)}"
+                  loading="lazy"
+                  onerror="this.onerror=null; this.src='${fallbackSrc}';"
+                  class="product-img w-full h-full object-cover transition-transform duration-500 ${isSoldOut ? 'grayscale-[45%]' : ''}"
+                />
+
+                <!-- Top-Left Badges -->
+                <div class="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
+                  ${
+                    product.Featured
+                      ? `<span class="inline-flex items-center gap-1 bg-[#1A1817]/90 backdrop-blur-xs text-[#E8DEC8] text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm border border-gold/30">
+                          &#9733; Bestseller
+                        </span>`
+                      : ''
+                  }
+                  ${
+                    isSoldOut
+                      ? `<span class="inline-flex items-center bg-red-600/95 text-white text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                          Sold Out
+                        </span>`
+                      : ''
+                  }
+                </div>
+
+                <!-- Size Pill Bottom-Right -->
+                ${
+                  product.Size
+                    ? `<span class="absolute bottom-2.5 right-2.5 bg-surface/90 backdrop-blur-xs text-charcoal text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-full border theme-border">
+                        ${escapeHTML(product.Size)}
+                      </span>`
+                    : ''
+                }
+              </div>
+
+              <!-- Card Details -->
+              <div class="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <p class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.16em] text-muted truncate">
+                    ${escapeHTML(product.Brand || 'House Blend')}
+                  </p>
+                  <h2 class="font-serif text-lg sm:text-xl font-bold text-charcoal leading-snug mt-0.5 line-clamp-1 group-hover:text-gold transition-colors">
+                    ${escapeHTML(product.Name)}
+                  </h2>
+                  <p class="text-[11px] sm:text-xs text-muted line-clamp-1 mt-1 min-h-[16px]">
+                    ${escapeHTML(notesPreview || product.Category)}
+                  </p>
+                </div>
+
+                <div class="mt-3.5 pt-3 border-t theme-border flex flex-col gap-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm sm:text-base font-bold text-charcoal">
+                      ${formatNaira(product.Price)}
+                    </span>
+                    <span class="text-[11px] text-gold font-medium group-hover:underline">
+                      Notes &rarr;
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    data-add-id="${escapeHTML(product.ID)}"
+                    ${isSoldOut ? 'disabled' : ''}
+                    class="quick-add-btn w-full py-2 sm:py-2.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 ${
+                      isSoldOut
+                        ? 'bg-ivory text-muted cursor-not-allowed'
+                        : 'theme-btn-primary active:scale-[0.98] cursor-pointer'
+                    }"
+                  >
+                    ${
+                      isSoldOut
+                        ? 'Out of Stock'
+                        : `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                          </svg>
+                          <span>Add to Bag</span>`
+                    }
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+    }
+
+    // =========================================================================
+    // PERFUME DETAILS MODAL
+    // =========================================================================
+
+    function openProductModal(productId) {
+      const product = state.products.find((p) => p.ID === productId);
+      if (!product) return;
+
+      state.activeModalProductId = product.ID;
+
+      const modal = document.getElementById('product-modal');
+      const fallbackSrc = getFallbackBottleSVG(product.Brand, product.Name);
+      const modalImg = document.getElementById('modal-image');
+      modalImg.src = product.ImageURL || fallbackSrc;
+      modalImg.alt = `${product.Brand} ${product.Name}`;
+      modalImg.onerror = function () {
+        this.onerror = null;
+        this.src = fallbackSrc;
+      };
+
+      // Badges
+      const badgesEl = document.getElementById('modal-badges');
+      badgesEl.innerHTML = `
+        ${
+          product.Featured
+            ? `<span class="bg-[#1A1817]/90 text-[#E8DEC8] text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm border border-gold/30">&#9733; Bestseller</span>`
+            : ''
+        }
+        ${
+          !product.InStock
+            ? `<span class="bg-red-600 text-white text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">Sold Out</span>`
+            : ''
+        }
+      `;
+
+      document.getElementById('modal-brand').textContent = product.Brand || 'Curated Scent';
+      document.getElementById('modal-category').textContent = product.Category || 'Fragrance';
+      document.getElementById('modal-title').textContent = product.Name;
+      document.getElementById('modal-size').textContent = product.Size ? `Bottle Size: ${product.Size}` : 'Standard Bottle';
+      document.getElementById('modal-price').textContent = formatNaira(product.Price);
+
+      const stockStatusEl = document.getElementById('modal-stock-status');
+      if (product.InStock) {
+        stockStatusEl.textContent = 'In Stock & Ready to Ship';
+        stockStatusEl.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 border border-emerald-500/30';
+      } else {
+        stockStatusEl.textContent = 'Currently Sold Out';
+        stockStatusEl.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-red-500/15 text-red-500 border border-red-500/30';
+      }
+
+      // Render scent notes as clean tags
+      const notesContainer = document.getElementById('modal-notes');
+      const notes = product.Notes
+        ? product.Notes.split(',').map((n) => n.trim()).filter(Boolean)
+        : ['Signature Blend'];
+
+      notesContainer.innerHTML = notes
+        .map(
+          (note) => `
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-alabaster text-charcoal border theme-border-strong">
+            ${escapeHTML(note)}
+          </span>
+        `
+        )
+        .join('');
+
+      // Configure Modal CTA Button
+      const addBtn = document.getElementById('modal-add-btn');
+      if (product.InStock) {
+        addBtn.disabled = false;
+        addBtn.className =
+          'w-full py-3.5 px-6 rounded-full font-semibold text-sm theme-btn-primary flex items-center justify-center gap-2 shadow-soft cursor-pointer';
+        addBtn.innerHTML = `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <span>Add to Bag — ${formatNaira(product.Price)}</span>
+        `;
+      } else {
+        addBtn.disabled = true;
+        addBtn.className =
+          'w-full py-3.5 px-6 rounded-full font-semibold text-sm bg-ivory text-muted cursor-not-allowed flex items-center justify-center';
+        addBtn.textContent = 'Sold Out';
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('product-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      state.activeModalProductId = null;
+      if (document.getElementById('cart-drawer').classList.contains('hidden')) {
+        document.body.style.overflow = '';
+      }
+    }
+
+    // =========================================================================
+    // CART STATE & LOCALSTORAGE PERSISTENCE
+    // =========================================================================
+
+    function loadCartFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_CART);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            state.cart = parsed.filter((item) => item && item.id && Number(item.qty) > 0);
+          }
+        }
+      } catch (e) {
+        console.warn('Could not read cart from localStorage:', e);
+      }
+    }
+
+    function saveCartToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY_CART, JSON.stringify(state.cart));
+      } catch (e) {
+        console.warn('Could not save cart to localStorage:', e);
+      }
+    }
+
+    function loadCustomerDetailsFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_CUSTOMER);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data.name) document.getElementById('customer-name').value = data.name;
+        if (data.state) document.getElementById('customer-state').value = data.state;
+        if (data.city) document.getElementById('customer-city').value = data.city;
+        if (data.note) document.getElementById('customer-note').value = data.note;
+      } catch (e) {
+        // Ignore storage read errors
+      }
+    }
+
+    function saveCustomerDetailsToStorage() {
+      try {
+        const payload = {
+          name: document.getElementById('customer-name').value.trim(),
+          state: document.getElementById('customer-state').value,
+          city: document.getElementById('customer-city').value.trim(),
+          note: document.getElementById('customer-note').value.trim()
+        };
+        localStorage.setItem(STORAGE_KEY_CUSTOMER, JSON.stringify(payload));
+      } catch (e) {
+        // Ignore storage write errors
+      }
+    }
+
+    function addToCart(productId, quantity = 1) {
+      const product = state.products.find((p) => p.ID === productId);
+      if (!product || !product.InStock) return;
+
+      const existing = state.cart.find((item) => item.id === productId);
+      if (existing) {
+        existing.qty += quantity;
+      } else {
+        state.cart.push({ id: productId, qty: quantity });
+      }
+
+      saveCartToStorage();
+      updateCartUI();
+      showToast(`Added ${product.Name} to your bag`);
+    }
+
+    function updateCartItemQty(productId, delta) {
+      const idx = state.cart.findIndex((item) => item.id === productId);
+      if (idx === -1) return;
+
+      state.cart[idx].qty += delta;
+      if (state.cart[idx].qty <= 0) {
+        state.cart.splice(idx, 1);
+      }
+
+      saveCartToStorage();
+      updateCartUI();
+    }
+
+    function removeCartItem(productId) {
+      state.cart = state.cart.filter((item) => item.id !== productId);
+      saveCartToStorage();
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const badge = document.getElementById('cart-badge-count');
+      const subtitle = document.getElementById('cart-subtitle');
+      const emptyView = document.getElementById('cart-empty-view');
+      const itemsContainer = document.getElementById('cart-items-container');
+      const checkoutForm = document.getElementById('checkout-form');
+      const cartFooter = document.getElementById('cart-footer');
+      const subtotalEl = document.getElementById('cart-subtotal');
+
+      // Map cart entries to loaded in-stock product objects
+      const hydratedItems = state.cart
+        .map((entry) => {
+          const product = state.products.find((p) => p.ID === entry.id);
+          return product ? { product, qty: entry.qty } : null;
+        })
+        .filter(Boolean);
+
+      const totalCount = hydratedItems.reduce((sum, item) => sum + item.qty, 0);
+      const subtotal = hydratedItems.reduce((sum, item) => sum + item.product.Price * item.qty, 0);
+
+      badge.textContent = totalCount;
+      subtitle.textContent = `${totalCount} ${totalCount === 1 ? 'item' : 'items'} selected`;
+      subtotalEl.textContent = formatNaira(subtotal);
+
+      if (hydratedItems.length === 0) {
+        emptyView.classList.remove('hidden');
+        itemsContainer.classList.add('hidden');
+        checkoutForm.classList.add('hidden');
+        cartFooter.classList.add('hidden');
+        return;
+      }
+
+      emptyView.classList.add('hidden');
+      itemsContainer.classList.remove('hidden');
+      checkoutForm.classList.remove('hidden');
+      cartFooter.classList.remove('hidden');
+
+      itemsContainer.innerHTML = hydratedItems
+        .map(({ product, qty }) => {
+          const fallbackSrc = getFallbackBottleSVG(product.Brand, product.Name);
+          const imgSrc = product.ImageURL ? escapeHTML(product.ImageURL) : fallbackSrc;
+          const lineTotal = product.Price * qty;
+
+          return `
+            <div class="bg-surface p-3 rounded-2xl border theme-border flex items-center gap-3 shadow-sm">
+              <img
+                src="${imgSrc}"
+                alt="${escapeHTML(product.Name)}"
+                onerror="this.onerror=null; this.src='${fallbackSrc}';"
+                class="w-16 h-20 rounded-xl object-cover bottle-placeholder-bg shrink-0 border theme-border"
+              />
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] font-semibold uppercase tracking-wider text-muted truncate">
+                  ${escapeHTML(product.Brand)}
+                </p>
+                <h4 class="font-serif text-base font-bold text-charcoal truncate">
+                  ${escapeHTML(product.Name)}
+                </h4>
+                <p class="text-xs text-muted">
+                  ${escapeHTML(product.Size)} &bull; ${formatNaira(product.Price)} each
+                </p>
+
+                <div class="flex items-center justify-between mt-2">
+                  <!-- +/- Quantity Controls -->
+                  <div class="inline-flex items-center bg-alabaster border theme-border-strong rounded-full">
+                    <button
+                      type="button"
+                      data-qty-minus="${escapeHTML(product.ID)}"
+                      aria-label="Decrease quantity"
+                      class="w-7 h-7 flex items-center justify-center text-charcoal hover:text-gold font-bold cursor-pointer"
+                    >
+                      &minus;
+                    </button>
+                    <span class="px-2.5 text-xs font-semibold text-charcoal">${qty}</span>
+                    <button
+                      type="button"
+                      data-qty-plus="${escapeHTML(product.ID)}"
+                      aria-label="Increase quantity"
+                      class="w-7 h-7 flex items-center justify-center text-charcoal hover:text-gold font-bold cursor-pointer"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-xs font-bold text-charcoal">${formatNaira(lineTotal)}</span>
+                    <button
+                      type="button"
+                      data-remove-id="${escapeHTML(product.ID)}"
+                      aria-label="Remove item"
+                      class="text-muted hover:text-red-500 transition-colors p-1 cursor-pointer"
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function openCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      drawer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      updateCartUI();
+    }
+
+    function closeCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      drawer.classList.add('hidden');
+      if (document.getElementById('product-modal').classList.contains('hidden')) {
+        document.body.style.overflow = '';
+      }
+    }
+
+    // =========================================================================
+    // WHATSAPP CHECKOUT DEEP LINK GENERATOR
+    // =========================================================================
+
+    function handleWhatsAppCheckout() {
+      const nameInput = document.getElementById('customer-name');
+      const stateInput = document.getElementById('customer-state');
+      const cityInput = document.getElementById('customer-city');
+      const noteInput = document.getElementById('customer-note');
+      const errorBanner = document.getElementById('form-error-msg');
+
+      const customerName = nameInput.value.trim();
+      const deliveryState = stateInput.value.trim();
+      const deliveryCity = cityInput.value.trim();
+      const deliveryNote = noteInput.value.trim();
+
+      if (!customerName || !deliveryState || !deliveryCity) {
+        errorBanner.classList.remove('hidden');
+        if (!customerName) nameInput.focus();
+        else if (!deliveryState) stateInput.focus();
+        else cityInput.focus();
+        return;
+      }
+
+      errorBanner.classList.add('hidden');
+      saveCustomerDetailsToStorage();
+
+      const hydratedItems = state.cart
+        .map((entry) => {
+          const product = state.products.find((p) => p.ID === entry.id);
+          return product ? { product, qty: entry.qty } : null;
+        })
+        .filter(Boolean);
+
+      if (hydratedItems.length === 0) return;
+
+      const subtotal = hydratedItems.reduce((sum, item) => sum + item.product.Price * item.qty, 0);
+
+      const lines = [];
+      lines.push(`Hello *${CONFIG.STORE_NAME}*! I would like to place a fragrance order:`);
+      lines.push('');
+      lines.push('*ORDER ITEMS:*');
+
+      hydratedItems.forEach(({ product, qty }, index) => {
+        const sizeLabel = product.Size ? ` (${product.Size})` : '';
+        const itemTotal = formatNaira(product.Price * qty);
+        lines.push(`${index + 1}. ${product.Brand} - ${product.Name}${sizeLabel} x${qty} — ${itemTotal}`);
+      });
+
+      lines.push('');
+      lines.push(`*Subtotal:* ${formatNaira(subtotal)}`);
+      lines.push('');
+      lines.push('*DELIVERY DETAILS:*');
+      lines.push(`• *Name:* ${customerName}`);
+      lines.push(`• *State:* ${deliveryState}`);
+      lines.push(`• *City/Area:* ${deliveryCity}`);
+      if (deliveryNote) {
+        lines.push(`• *Note:* ${deliveryNote}`);
+      }
+      lines.push('');
+      lines.push('Please confirm availability and delivery fee so I can complete payment. Thank you!');
+
+      const encodedMessage = encodeURIComponent(lines.join('\n'));
+      const cleanPhone = String(CONFIG.WHATSAPP_NUMBER).replace(/[^0-9]/g, '');
+      const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
+
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    // =========================================================================
+    // EVENT LISTENERS & INITIALIZATION
+    // =========================================================================
+
+    function applyStoreBranding() {
+      const storeName = CONFIG.STORE_NAME || 'BRIGHTSTAR FRAGRANCE';
+      document.title = `${storeName} — Curated Luxury Perfumes & Oils`;
+      document.getElementById('header-store-name').textContent = storeName;
+      document.getElementById('footer-store-name').textContent = storeName;
+      document.getElementById('copyright-store-name').textContent = storeName;
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+
+      const cleanPhone = String(CONFIG.WHATSAPP_NUMBER).replace(/[^0-9]/g, '');
+      document.getElementById('footer-whatsapp-link').href = `https://wa.me/${cleanPhone}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      applyStoreBranding();
+      renderCategoryPills();
+      loadCartFromStorage();
+      loadCustomerDetailsFromStorage();
+      loadCatalog();
+
+      // Minimal Theme Toggle Button
+      document.getElementById('theme-toggle-btn').addEventListener('click', toggleTheme);
+
+      // Category Pill Clicks
+      document.getElementById('category-pills').addEventListener('click', (e) => {
+        const btn = e.target.closest('.category-pill');
+        if (!btn) return;
+        state.selectedCategory = btn.dataset.category;
+        renderCategoryPills();
+        renderProducts();
+      });
+
+      // Real-time Search Input
+      const searchInput = document.getElementById('search-input');
+      const clearSearchBtn = document.getElementById('clear-search-btn');
+
+      searchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        clearSearchBtn.classList.toggle('hidden', state.searchQuery.length === 0);
+        renderProducts();
+      });
+
+      clearSearchBtn.addEventListener('click', () => {
+        state.searchQuery = '';
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        renderProducts();
+        searchInput.focus();
+      });
+
+      // Interactive In-Stock Only Toggle
+      document.getElementById('hide-soldout-toggle').addEventListener('change', (e) => {
+        state.hideSoldOut = e.target.checked;
+        renderProducts();
+      });
+
+      // Reset Filters Button (Empty State)
+      document.getElementById('reset-filters-btn').addEventListener('click', () => {
+        state.selectedCategory = 'All';
+        state.searchQuery = '';
+        state.hideSoldOut = false;
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        document.getElementById('hide-soldout-toggle').checked = false;
+        renderCategoryPills();
+        renderProducts();
+      });
+
+      // Retry Fetch Button (Error State)
+      document.getElementById('retry-fetch-btn').addEventListener('click', loadCatalog);
+
+      // Product Grid Delegation (Quick Add vs. Open Details Modal)
+      document.getElementById('product-grid').addEventListener('click', (e) => {
+        const quickAddBtn = e.target.closest('.quick-add-btn');
+        if (quickAddBtn) {
+          e.stopPropagation();
+          const addId = quickAddBtn.dataset.addId;
+          if (addId) addToCart(addId, 1);
+          return;
+        }
+
+        const card = e.target.closest('.product-card');
+        if (card && card.dataset.productId) {
+          openProductModal(card.dataset.productId);
+        }
+      });
+
+      // Modal Controls
+      document.getElementById('close-modal-btn').addEventListener('click', closeProductModal);
+      document.getElementById('modal-backdrop').addEventListener('click', closeProductModal);
+      document.getElementById('modal-add-btn').addEventListener('click', () => {
+        if (state.activeModalProductId) {
+          addToCart(state.activeModalProductId, 1);
+          closeProductModal();
+        }
+      });
+
+      // Cart Drawer Controls
+      document.getElementById('open-cart-btn').addEventListener('click', openCartDrawer);
+      document.getElementById('close-cart-btn').addEventListener('click', closeCartDrawer);
+      document.getElementById('cart-backdrop').addEventListener('click', closeCartDrawer);
+      document.getElementById('continue-shopping-btn').addEventListener('click', closeCartDrawer);
+
+      // Cart Item Quantity & Remove Delegation
+      document.getElementById('cart-items-container').addEventListener('click', (e) => {
+        const minusBtn = e.target.closest('[data-qty-minus]');
+        if (minusBtn) {
+          updateCartItemQty(minusBtn.dataset.qtyMinus, -1);
+          return;
+        }
+        const plusBtn = e.target.closest('[data-qty-plus]');
+        if (plusBtn) {
+          updateCartItemQty(plusBtn.dataset.qtyPlus, 1);
+          return;
+        }
+        const removeBtn = e.target.closest('[data-remove-id]');
+        if (removeBtn) {
+          removeCartItem(removeBtn.dataset.removeId);
+        }
+      });
+
+      // Auto-save customer delivery inputs as they type
+      ['customer-name', 'customer-state', 'customer-city', 'customer-note'].forEach((id) => {
+        const el = document.getElementById(id);
+        el.addEventListener('input', saveCustomerDetailsToStorage);
+        el.addEventListener('change', saveCustomerDetailsToStorage);
+      });
+
+      // WhatsApp Checkout Button
+      document.getElementById('whatsapp-checkout-btn').addEventListener('click', handleWhatsAppCheckout);
+
+      // Close active modal/drawer on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!document.getElementById('product-modal').classList.contains('hidden')) {
+            closeProductModal();
+          } else if (!document.getElementById('cart-drawer').classList.contains('hidden')) {
+            closeCartDrawer();
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
